@@ -3,18 +3,21 @@ import db from '../config/connection.js';
 
 export default async (modelName: "Question", collectionName: string) => {
   try {
-    const model = models[modelName];
-    if (model?.db?.db) {
-      let modelExists = await models[modelName].db.db.listCollections({
-        name: collectionName
-      }).toArray();
+    if (db?.db) {
+      const collections = await db.db.listCollections({ name: collectionName }).toArray();
 
-      if (modelExists?.length) {
+      if (collections.length) {
         await db.dropCollection(collectionName);
+        console.log(`Dropped collection: ${collectionName}`);
+      } else {
+        console.log(`No collection found named: ${collectionName}`);
       }
-    } else { console.log(`Model ${modelName} does not exist in the database`); }
+    } else {
+      console.error("No database connection.");
+    }
   } catch (err) {
+    console.error("Error cleaning database:", err);
     throw err;
   }
-}
+};
 
