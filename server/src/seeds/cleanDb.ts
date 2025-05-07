@@ -1,6 +1,6 @@
 import db from '../config/connection.js';
 
-export default async (modelName: "Question", collectionName: string) => {
+export default async (_modelName: "Question", collectionName: string) => {
   try {
     if (db?.db) {
       const collections = await db.db.listCollections({ name: collectionName }).toArray();
