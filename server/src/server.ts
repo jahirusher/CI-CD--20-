@@ -1,4 +1,4 @@
-mport express from 'express';
+import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import db from './config/connection.js';
